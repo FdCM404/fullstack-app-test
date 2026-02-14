@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-# ============================================================
-#  Full-Stack App – One-Shot Setup Script
-#  Checks for existing installs before touching anything.
-# ============================================================
+
+# Setup Script
+
 set -euo pipefail
 
 GREEN='\033[0;32m'
@@ -16,9 +15,6 @@ fail()  { echo -e "${RED}[ERR]${NC}   $*"; exit 1; }
 
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-# ----------------------------------------------------------
-# 1. Pre-flight: check required system tools
-# ----------------------------------------------------------
 info "Checking required system tools..."
 
 for cmd in python3 pip3 node npm; do
@@ -33,16 +29,16 @@ info "node    : $(node --version)"
 info "npm     : $(npm --version)"
 echo
 
-# ----------------------------------------------------------
-# 2. Backend – Python virtual-env & dependencies
-# ----------------------------------------------------------
+
+# 1. Backend – Python virtual-env, dependencies
+
 VENV_DIR="$ROOT_DIR/backend-venv"
 PIP="$VENV_DIR/bin/pip"
 PYTHON="$VENV_DIR/bin/python"
 
 BACKEND_PACKAGES=(flask flask-sqlalchemy flask-cors)
 
-# 2a. Create venv if missing
+# 1a. Create venv if missing
 if [ -f "$PYTHON" ]; then
     warn "Python venv already exists at $VENV_DIR"
 else
@@ -51,11 +47,9 @@ else
     info "Virtual environment created."
 fi
 
-# 2b. Install each pip package only if not already present
+# 1b. Install each pip package only if not already present
 info "Checking backend Python packages..."
 for pkg in "${BACKEND_PACKAGES[@]}"; do
-    # pip show uses the distribution name (flask-cors → Flask-Cors), but
-    # pip show is case-insensitive so passing the lowercase name is fine.
     if "$PIP" show "$pkg" &>/dev/null; then
         warn "pip package '$pkg' is already installed."
     else
@@ -65,12 +59,11 @@ for pkg in "${BACKEND_PACKAGES[@]}"; do
 done
 echo
 
-# ----------------------------------------------------------
-# 3. Frontend – Vite / React scaffold & npm dependencies
-# ----------------------------------------------------------
+# 2. Frontend – Vite / React scaffold & npm dependencies
+
 FRONTEND_DIR="$ROOT_DIR/frontend"
 
-# 3a. Scaffold only if the frontend directory does NOT exist
+# 3. Scaffold only if the frontend directory does NOT exist
 if [ -d "$FRONTEND_DIR" ]; then
     warn "frontend/ directory already exists – skipping Vite scaffold."
 else
@@ -79,7 +72,7 @@ else
     npm create vite@latest frontend -- --template react
 fi
 
-# 3b. Install npm packages if node_modules is missing or empty
+# 3a. Install npm packages if node_modules is missing or empty
 cd "$FRONTEND_DIR"
 
 if [ -d "node_modules" ] && [ "$(ls -A node_modules 2>/dev/null)" ]; then
@@ -89,7 +82,7 @@ else
     npm install
 fi
 
-# 3c. Install react-router-dom if not already present
+# 3b. Install react-router-dom if not already present
 if [ -d "node_modules/react-router-dom" ]; then
     warn "react-router-dom is already installed."
 else
@@ -107,17 +100,17 @@ else
 fi
 echo
 
-# ----------------------------------------------------------
+
 # 4. Initialise the database & create admin user
-# ----------------------------------------------------------
+
 info "Initialising database & creating admin user ..."
 cd "$ROOT_DIR"
 "$PYTHON" adminCreate.py
 echo
 
-# ----------------------------------------------------------
+
 # 5. Done – print quick-start instructions
-# ----------------------------------------------------------
+
 echo -e "${GREEN}============================================${NC}"
 echo -e "${GREEN}  Setup complete!${NC}"
 echo -e "${GREEN}============================================${NC}"
