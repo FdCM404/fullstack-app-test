@@ -1,15 +1,14 @@
-/* ═══════════════════════════════════════════════════════════════
-   NetOps Console — Component Styles
-   ═══════════════════════════════════════════════════════════════ */
 
-/* ── App Root ───────────────────────────────────────────────── */
+/* NetOps Console — Component Styles
+
+/* App Root */
 #root {
   max-width: 1100px;
   margin: 0 auto;
   padding: 2rem 2rem 4rem;
 }
 
-/* ── Login / Register Container ─────────────────────────────── */
+/* Login / Register Container */
 .login-container {
   max-width: 420px;
   margin: 8vh auto 0;
@@ -69,7 +68,7 @@
   font-size: 0.85rem;
 }
 
-/* ── Dashboard ──────────────────────────────────────────────── */
+/* Dashboard */
 .dashboard-container {
   animation: fadeIn 0.4s ease;
 }
@@ -113,7 +112,7 @@
   color: var(--red);
 }
 
-/* ── Dashboard Cards Grid ───────────────────────────────────── */
+/* Dashboard Cards Grid */
 .dashboard-options {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -193,7 +192,7 @@
   display: none;
 }
 
-/* ── Page Layout (Contacts, Equipment, Maintenance) ─────────── */
+/* Page Layout (Contacts, Equipment, Maintenance) */
 .page-container {
   animation: fadeIn 0.35s ease;
 }
@@ -217,7 +216,7 @@
   box-shadow: none;
 }
 
-/* ── Table Section Wrapper ──────────────────────────────────── */
+/* Table Section Wrapper */
 .table-section {
   margin-bottom: 2.5rem;
 }
@@ -259,7 +258,7 @@ td button:last-child:hover {
   color: var(--red);
 }
 
-/* ── Form Section ───────────────────────────────────────────── */
+/* Form Section */
 .form-section {
   background: var(--bg-surface);
   border: 1px solid var(--border);
@@ -290,7 +289,7 @@ td button:last-child:hover {
   border-bottom: 1px solid var(--border);
 }
 
-/* ── Status Badges (for equipment state, maintenance type) ──── */
+/* Status Badges (for equipment state, maintenance type) */
 .badge {
   display: inline-block;
   font-family: var(--font-mono);
@@ -333,7 +332,7 @@ td button:last-child:hover {
   opacity: 0.7;
 }
 
-/* ── Empty State ────────────────────────────────────────────── */
+/* Empty State */
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
@@ -342,7 +341,7 @@ td button:last-child:hover {
   font-size: 0.9rem;
 }
 
-/* ── Responsive ─────────────────────────────────────────────── */
+/* Responsive */
 @media (max-width: 768px) {
   #root {
     padding: 1rem;

@@ -1,4 +1,4 @@
-##### Run the script "setup.sh" to run the app. What does it do?
+# Run the script "setup.sh" to run the app. What does it do?
 
 #### Installs python
 
@@ -35,4 +35,3 @@
     ...and on another terminal:
 
     - ´npm run frontend/dev´
-
