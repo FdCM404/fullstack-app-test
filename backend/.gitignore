@@ -1,0 +1,11 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Database
+instance/
+*.db
+
+# Venv artifacts (venv was created here by mistake — actual venv is at backend-venv/)
+pyvenv.cfg

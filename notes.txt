@@ -1,0 +1,23 @@
+# CORS - CROSS ORIGIN REQUEST SERVICE?
+
+CORS is a mechanism that allows these requests to be made safely by 
+enabling servers to specify
+which origins are permitted to access their resources.
+
+
+# CRUD APP - Create, Remove, Update, Delete
+
+create: 
+
+
+# ENDPOINTS
+
+    localhost:<PORT>/create_contact
+
+
+# FLASK
+
+In Flask, the line with app.app_context(): 
+is used to create a "sandbox" or a temporary environment where Flask’s features 
+(like my database connection) 
+are accessible even when a web request isn't actually happening.

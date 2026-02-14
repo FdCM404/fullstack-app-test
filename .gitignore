@@ -1,0 +1,58 @@
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Python virtual environments
+backend-venv/
+
+# Python cache / bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Database files
+*.db
+*.sqlite
+instance/
+
+# Environment variables
+.env
+.env.*
+
+# Sensitive / credentials
+adminCreate.py
+
+# Lock files & config (regenerated on install)
+package.json
+package-lock.json
+frontend/package-lock.json
+frontend/eslint.config.js
+
+# Venv config leftovers
+pyvenv.cfg
+backend/pyvenv.cfg

@@ -1,0 +1,6 @@
+add delete, update button actions
+
+add more fields (see SG-SGEI)
+
+work on backend (add more app routes)
+work on frontend (redirects and more js)

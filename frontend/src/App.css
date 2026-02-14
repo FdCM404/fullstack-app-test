@@ -1,0 +1,378 @@
+/* ═══════════════════════════════════════════════════════════════
+   NetOps Console — Component Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── App Root ───────────────────────────────────────────────── */
+#root {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+}
+
+/* ── Login / Register Container ─────────────────────────────── */
+.login-container {
+  max-width: 420px;
+  margin: 8vh auto 0;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative top-bar accent */
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--cyan), var(--accent));
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.login-container h2::after {
+  display: none;
+}
+
+.login-container form {
+  gap: 1.1rem;
+}
+
+.login-container form > div {
+  gap: 0.3rem;
+}
+
+.login-container button[type="submit"] {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.75rem;
+}
+
+.login-container p {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+}
+
+/* ── Dashboard ──────────────────────────────────────────────── */
+.dashboard-container {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.dashboard-header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.dashboard-header p {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.dashboard-header button {
+  border-color: var(--red-dim);
+  color: var(--red);
+}
+
+.dashboard-header button:hover {
+  background: var(--red-glow);
+  border-color: var(--red);
+  box-shadow: 0 0 16px var(--red-glow);
+  color: var(--red);
+}
+
+/* ── Dashboard Cards Grid ───────────────────────────────────── */
+.dashboard-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.dashboard-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.dashboard-card:hover::before {
+  transform: scaleX(1);
+}
+
+.dashboard-card:hover {
+  background: var(--bg-elevated);
+  border-color: var(--accent-dim);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.3),
+    0 0 30px var(--accent-glow2);
+  transform: translateY(-2px);
+}
+
+.dashboard-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.dashboard-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.dashboard-card:hover p {
+  color: var(--text-secondary);
+}
+
+/* Disabled card */
+.dashboard-card.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+}
+
+.dashboard-card.disabled:hover {
+  background: var(--bg-surface);
+  border-color: var(--border);
+  box-shadow: none;
+  transform: none;
+}
+
+.dashboard-card.disabled::before {
+  display: none;
+}
+
+/* ── Page Layout (Contacts, Equipment, Maintenance) ─────────── */
+.page-container {
+  animation: fadeIn 0.35s ease;
+}
+
+.page-container > button:first-child,
+.back-btn {
+  margin-bottom: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  border-color: transparent;
+  background: transparent;
+  padding: 0.4rem 0.8rem;
+}
+
+.page-container > button:first-child:hover,
+.back-btn:hover {
+  color: var(--cyan);
+  border-color: transparent;
+  background: var(--cyan-glow);
+  box-shadow: none;
+}
+
+/* ── Table Section Wrapper ──────────────────────────────────── */
+.table-section {
+  margin-bottom: 2.5rem;
+}
+
+.table-section h2 {
+  margin-bottom: 1.2rem;
+}
+
+/* Table action buttons */
+td button {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  margin-right: 0.4rem;
+}
+
+/* Update button */
+td button:first-child {
+  border-color: rgba(0, 212, 255, 0.3);
+  color: var(--cyan);
+}
+
+td button:first-child:hover {
+  background: var(--cyan-glow);
+  border-color: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan-glow);
+  color: var(--cyan);
+}
+
+/* Delete button */
+td button:last-child {
+  border-color: rgba(255, 64, 87, 0.25);
+  color: var(--red);
+}
+
+td button:last-child:hover {
+  background: var(--red-glow);
+  border-color: var(--red);
+  box-shadow: 0 0 12px var(--red-glow);
+  color: var(--red);
+}
+
+/* ── Form Section ───────────────────────────────────────────── */
+.form-section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.5rem;
+  position: relative;
+}
+
+.form-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--accent), var(--cyan), transparent);
+  border-radius: 1px;
+}
+
+.form-section h3 {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Status Badges (for equipment state, maintenance type) ──── */
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-operational {
+  background: rgba(0, 255, 136, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(0, 255, 136, 0.25);
+}
+
+.badge-maintenance {
+  background: rgba(255, 184, 0, 0.12);
+  color: var(--amber);
+  border: 1px solid rgba(255, 184, 0, 0.25);
+}
+
+.badge-damaged {
+  background: var(--red-glow);
+  color: var(--red);
+  border: 1px solid rgba(255, 64, 87, 0.25);
+}
+
+.badge-inactive {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+
+.badge-archived {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  opacity: 0.7;
+}
+
+/* ── Empty State ────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+
+  .dashboard-options {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .login-container {
+    margin-top: 4vh;
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
