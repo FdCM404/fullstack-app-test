@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import EquipmentList from "../EquipmentList"
 import EquipmentForm from "../EquipmentForm"
 
@@ -7,7 +6,6 @@ const EquipmentPage = () => {
     const [equipment, setEquipment] = useState([])
     const [contacts, setContacts] = useState([])
     const [currentEquipment, setCurrentEquipment] = useState({})
-    const navigate = useNavigate()
 
     useEffect(() => {
         fetchEquipment()
@@ -47,7 +45,6 @@ const EquipmentPage = () => {
 
     return (
         <div className="page-container">
-            <button onClick={() => navigate("/dashboard")}>← Back to Dashboard</button>
             <EquipmentList equipment={equipment} updateEquipment={updateEquipment} deleteEquipment={deleteEquipment} />
             <div className="form-section">
                 <h3>{Object.keys(currentEquipment).length ? 'Update Equipment' : 'Add Equipment'}</h3>

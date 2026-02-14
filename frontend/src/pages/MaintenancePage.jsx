@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import MaintenanceList from "../MaintenanceList"
 import MaintenanceForm from "../MaintenanceForm"
 
@@ -7,7 +6,6 @@ const MaintenancePage = () => {
     const [maintenances, setMaintenances] = useState([])
     const [equipment, setEquipment] = useState([])
     const [currentMaintenance, setCurrentMaintenance] = useState({})
-    const navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem("user"))
 
     useEffect(() => {
@@ -48,7 +46,6 @@ const MaintenancePage = () => {
 
     return (
         <div className="page-container">
-            <button onClick={() => navigate("/dashboard")}>← Back to Dashboard</button>
             <MaintenanceList
                 maintenances={maintenances}
                 updateMaintenance={updateMaintenance}

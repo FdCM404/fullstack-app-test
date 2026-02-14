@@ -12,10 +12,14 @@ function App() {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/contacts" element={<ContactsPage />} />
-      <Route path="/equipment" element={<EquipmentPage />} />
-      <Route path="/maintenances" element={<MaintenancePage />} />
+
+      {/* Dashboard layout with sidebar — child routes render in <Outlet /> */}
+      <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="contacts" element={<ContactsPage />} />
+        <Route path="equipment" element={<EquipmentPage />} />
+        <Route path="maintenances" element={<MaintenancePage />} />
+      </Route>
+
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

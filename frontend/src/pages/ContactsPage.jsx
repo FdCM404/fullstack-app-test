@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import ContactList from "../ContactList"
 import ContactForm from "../ContactForm"
 
 const ContactsPage = () => {
     const [contacts, setContacts] = useState([])
     const [currentContact, setCurrentContact] = useState({})
-    const navigate = useNavigate()
 
     useEffect(() => {
         fetchContacts()
@@ -39,7 +37,6 @@ const ContactsPage = () => {
 
     return (
         <div className="page-container">
-            <button onClick={() => navigate("/dashboard")}>← Back to Dashboard</button>
             <ContactList contacts={contacts} updateContact={updateContact} deleteContact={deleteContact} />
             <div className="form-section">
                 <h3>{Object.keys(currentContact).length ? 'Update Contact' : 'Add Contact'}</h3>
