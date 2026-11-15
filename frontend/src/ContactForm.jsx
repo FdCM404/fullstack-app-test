@@ -1,22 +1,28 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 const ContactForm = ({ existingContact = {}, updateCallback }) => {
+    const ROLE_PERMISSIONS = {
+        Administrator: ["VIEW_EQUIPMENT", "MANAGE_EQUIPMENT", "VIEW_MAINTENANCE", "MANAGE_MAINTENANCE", "VIEW_REPORTS", "MANAGE_USERS"],
+        "Network Engineer": ["VIEW_EQUIPMENT", "MANAGE_EQUIPMENT", "VIEW_MAINTENANCE", "MANAGE_MAINTENANCE", "VIEW_REPORTS"],
+        "IT Technician": ["VIEW_EQUIPMENT", "VIEW_REPORTS"],
+    }
+    const PERMISSIONS = [
+        ["VIEW_EQUIPMENT", "View equipment"],
+        ["MANAGE_EQUIPMENT", "Manage equipment"],
+        ["VIEW_MAINTENANCE", "View maintenance"],
+        ["MANAGE_MAINTENANCE", "Manage maintenance"],
+        ["VIEW_REPORTS", "View reports"],
+        ["MANAGE_USERS", "Manage users"],
+    ]
 
     const [firstName, setFirstName] = useState(existingContact.firstName || "")
     const [lastName, setLastName] = useState(existingContact.lastName || "")
     const [email, setEmail] = useState(existingContact.email || "")
-    const [role, setRole] = useState(existingContact.role || "")
+    const [role, setRole] = useState(existingContact.role || "IT Technician")
     const [password, setPassword] = useState("")
+    const [permissions, setPermissions] = useState(existingContact.permissions || ROLE_PERMISSIONS[existingContact.role] || [])
 
     const updating = Object.entries(existingContact).length !== 0
-
-    useEffect(() => {
-        setFirstName(existingContact.firstName || "")
-        setLastName(existingContact.lastName || "")
-        setEmail(existingContact.email || "")
-        setRole(existingContact.role || "")
-        setPassword("")
-    }, [existingContact])
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -26,12 +32,12 @@ const ContactForm = ({ existingContact = {}, updateCallback }) => {
             lastName,
             email,
             role,
-            password: password || undefined 
+            password: password || undefined
         }
 
         const url = updating
-            ? `http://127.0.0.1:5000/update_contact/${existingContact.id}`
-            : "http://127.0.0.1:5000/create_contact"
+            ? `/api/update_contact/${existingContact.id}`
+            : "/api/create_contact"
 
         const options = {
             method: updating ? "PATCH" : "POST",
@@ -84,12 +90,12 @@ const ContactForm = ({ existingContact = {}, updateCallback }) => {
 
             <div>
                 <label htmlFor="Role">Role:</label>
-                <input
-                    type="text"
-                    id="role"
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                />
+                <select id="role" value={role} onChange={(e) => {
+                    setRole(e.target.value)
+                    setPermissions(ROLE_PERMISSIONS[e.target.value])
+                }}>
+                    {Object.keys(ROLE_PERMISSIONS).map((availableRole) => <option key={availableRole} value={availableRole}>{availableRole}</option>)}
+                </select>
             </div>
 
             <div>
@@ -102,6 +108,22 @@ const ContactForm = ({ existingContact = {}, updateCallback }) => {
                     placeholder={updating ? "Leave blank to keep current password" : ""}
                 />
             </div>
+            {updating && (
+                <div>
+                    <label>Permissions:</label>
+                    {PERMISSIONS.map(([value, label]) => (
+                        <label key={value}>
+                            <input
+                                type="checkbox"
+                                checked={permissions.includes(value)}
+                                readOnly
+                                disabled
+                            />
+                            {label}
+                        </label>
+                    ))}
+                </div>
+            )}
 
             <button type="submit">{updating ? "Update" : "Create"} Contact</button>
         </form>

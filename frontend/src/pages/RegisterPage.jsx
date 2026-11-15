@@ -6,25 +6,29 @@ const RegisterPage = () => {
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [role, setRole] = useState("")
+    const [role, setRole] = useState("IT Technician")
     const navigate = useNavigate()
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        const response = await fetch("http://127.0.0.1:5000/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ firstName, lastName, email, password, role })
-        })
+        try {
+            const response = await fetch("/api/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ firstName, lastName, email, password, role })
+            })
+            const data = await response.json()
 
-        const data = await response.json()
+            if (!response.ok) {
+                alert(data.message || "Registration failed.")
+                return
+            }
 
-        if (response.status === 201) {
             alert("Account created! Please login.")
             navigate("/")
-        } else {
-            alert(data.message)
+        } catch {
+            alert("Could not connect to the backend. Make sure Flask is running on port 5000.")
         }
     }
 
@@ -70,13 +74,11 @@ const RegisterPage = () => {
                 </div>
                 <div>
                     <label htmlFor="role">Role:</label>
-                    <input
-                        type="text"
-                        id="role"
-                        value={role}
-                        placeholder="e.g. Network Engineer, IT Admin"
-                        onChange={(e) => setRole(e.target.value)}
-                    />
+                    <select id="role" value={role} onChange={(e) => setRole(e.target.value)}>
+                        <option value="Administrator">Administrator</option>
+                        <option value="Network Engineer">Network Engineer</option>
+                        <option value="IT Technician">IT Technician</option>
+                    </select>
                 </div>
                 <button type="submit">Register</button>
             </form>

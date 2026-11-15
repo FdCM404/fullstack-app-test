@@ -1,6 +1,6 @@
 import React from "react"
 
-const MaintenanceList = ({ maintenances, updateMaintenance, deleteMaintenance, isAdmin }) => {
+const MaintenanceList = ({ maintenances, updateMaintenance, deleteMaintenance, isAdmin, canManage }) => {
     return <div className="table-section">
         <h2>Maintenance Records</h2>
         <table>
@@ -21,8 +21,8 @@ const MaintenanceList = ({ maintenances, updateMaintenance, deleteMaintenance, i
                         <td>{m.date}</td>
                         <td>{m.description}</td>
                         <td>
-                            <button onClick={() => updateMaintenance(m)}>Update</button>
-                            {isAdmin === 1 && (
+                            {canManage && <button onClick={() => updateMaintenance(m)}>Update</button>}
+                            {canManage && isAdmin === 1 && (
                                 <button onClick={() => deleteMaintenance(m.id)}>Delete</button>
                             )}
                         </td>

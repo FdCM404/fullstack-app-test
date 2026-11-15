@@ -7,11 +7,13 @@ const ContactsPage = () => {
     const [currentContact, setCurrentContact] = useState({})
 
     useEffect(() => {
-        fetchContacts()
+        fetch("/api/contacts")
+            .then((response) => response.json())
+            .then((data) => setContacts(data.contacts))
     }, [])
 
     const fetchContacts = async () => {
-        const response = await fetch("http://127.0.0.1:5000/contacts")
+        const response = await fetch("/api/contacts")
         const data = await response.json()
         setContacts(data.contacts)
     }
@@ -26,7 +28,7 @@ const ContactsPage = () => {
     }
 
     const deleteContact = async (id) => {
-        const response = await fetch(`http://127.0.0.1:5000/delete_contact/${id}`, { method: "DELETE" })
+        const response = await fetch(`/api/delete_contact/${id}`, { method: "DELETE" })
         if (response.status === 200) {
             fetchContacts()
         } else {
@@ -40,7 +42,7 @@ const ContactsPage = () => {
             <ContactList contacts={contacts} updateContact={updateContact} deleteContact={deleteContact} />
             <div className="form-section">
                 <h3>{Object.keys(currentContact).length ? 'Update Contact' : 'Add Contact'}</h3>
-                <ContactForm existingContact={currentContact} updateCallback={onUpdate} />
+                <ContactForm key={currentContact.id || "new"} existingContact={currentContact} updateCallback={onUpdate} />
             </div>
         </div>
     )

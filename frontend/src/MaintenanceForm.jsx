@@ -29,8 +29,8 @@ const MaintenanceForm = ({ existingMaintenance = {}, updateCallback, equipment =
         }
 
         const url = updating
-            ? `http://127.0.0.1:5000/update_maintenance/${existingMaintenance.id}`
-            : "http://127.0.0.1:5000/create_maintenance"
+            ? `/api/update_maintenance/${existingMaintenance.id}`
+            : "/api/create_maintenance"
 
         const options = {
             method: updating ? "PATCH" : "POST",

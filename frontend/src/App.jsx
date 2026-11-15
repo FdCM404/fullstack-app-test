@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import ContactsPage from './pages/ContactsPage'
 import EquipmentPage from './pages/EquipmentPage'
 import MaintenancePage from './pages/MaintenancePage'
+import ReportsPage from './pages/ReportsPage'
 import './App.css'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="contacts" element={<ContactsPage />} />
         <Route path="equipment" element={<EquipmentPage />} />
         <Route path="maintenances" element={<MaintenancePage />} />
+        <Route path="reports" element={<ReportsPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" />} />

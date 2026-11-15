@@ -1,0 +1,9 @@
+type,model,serialNumber,equipmentState,assignedTo,floor,roomNumber,locationDescription,ipAddress,macAddress,hostname,vlan
+SERVER,Dell PowerEdge R750,SRVDELL750001,OPERATIONAL,,1,101,Primary server room,10.10.1.10,00:1A:2B:3C:4D:01,srv-core-01,10
+SWITCH,Cisco Catalyst 9300,SWCISCO930001,OPERATIONAL,,1,102,Network distribution room,10.10.2.10,00:1A:2B:3C:4D:02,sw-distribution-01,20
+ROUTER,Cisco ISR 4331,RTRCISCO43301,OPERATIONAL,,1,102,Network distribution room,10.10.2.1,00:1A:2B:3C:4D:03,rt-main-01,20
+FIREWALL,Fortinet FortiGate 100F,FWFORTI100001,OPERATIONAL,,1,103,Security room,10.10.3.1,00:1A:2B:3C:4D:04,fw-edge-01,30
+SERVER,HP ProLiant DL380 Gen10,SRVHPDL380001,UNDER_MAINTENANCE,,2,201,Secondary server room,10.20.1.10,00:1A:2B:3C:4D:05,srv-backup-01,10
+SWITCH,Aruba 2930F,SWARUBA2930001,OPERATIONAL,,2,202,Office network room,10.20.2.10,00:1A:2B:3C:4D:06,sw-office-01,40
+ROUTER,MikroTik CCR2004,RTRMIKROTIK01,INACTIVE,,2,203,Storage room,10.20.3.1,00:1A:2B:3C:4D:07,rt-reserve-01,50
+OTHER,APC Smart-UPS 3000,UPSAPC3000001,OPERATIONAL,,1,104,Equipment room,,,ups-network-01,60

@@ -9,19 +9,23 @@ const LoginPage = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        const response = await fetch("http://127.0.0.1:5000/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        })
+        try {
+            const response = await fetch("/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            })
+            const data = await response.json()
 
-        const data = await response.json()
+            if (!response.ok) {
+                alert(data.message || "Login failed.")
+                return
+            }
 
-        if (response.status === 200) {
             localStorage.setItem("user", JSON.stringify(data.user))
             navigate("/dashboard")
-        } else {
-            alert(data.message)
+        } catch {
+            alert("Could not connect to the backend. Make sure Flask is running on port 5000.")
         }
     }
 

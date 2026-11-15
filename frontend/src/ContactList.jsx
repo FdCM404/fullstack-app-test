@@ -10,6 +10,7 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Permissions</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -20,6 +21,7 @@ const ContactList = ({ contacts, updateContact, deleteContact }) => {
                         <td>{contact.lastName}</td>
                         <td>{contact.email}</td>
                         <td>{contact.role}</td>
+                        <td>{contact.permissions?.join(", ") || "None"}</td>
 
                         <td>
                             <button onClick={() => updateContact(contact)}>Update</button>

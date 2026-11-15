@@ -1,6 +1,32 @@
-add delete, update button actions
 
-add more fields (see SG-SGEI)
+1. 
+Definir RBAC:
+    
+    Admin responsável por tudo: Criaçao de dispositivos, eliminação / manutenção de dados no geral.
+    
+    Engenheiro de rede responsável por adicionar dispositivos (popular com dados de rede) e garantir upgrades / manutenções
+    
+    Consulta responsável por modificar estado do equipamentos apenas e ver o que esta acessível.
 
-work on backend (add more app routes)
-work on frontend (redirects and more js)
+
+
+Inclusão de um módulo de ajuda navegável integrado na própria interface web do sistema para orientação nas
+secções de registo e consulta. Uma nova aba em baixo e acessivel pelo dashboard de ajuda a utilizadores novos, como se fosse um manual.
+
+
+Pesquisa avançada com filtros dinâmicos (por tipo, estado, localização, função);  PEX diretamente no dashboard
+
+Backup system
+
+Exportaçao dos dados em pdf
+
+
+Na aba das manutençoes, ter uma subsecçao do historico de intervençoes realizadas
+
+
+
+Na dashboard/equipment
+
+    adicionar marca e localização?
+
+

@@ -3,8 +3,9 @@ import { useNavigate, useLocation, Outlet } from "react-router-dom"
 const navItems = [
     { path: "/dashboard",              label: "Home",         icon: "⌂", adminOnly: false },
     { path: "/dashboard/contacts",     label: "Contacts",     icon: "⊕", adminOnly: true },
-    { path: "/dashboard/maintenances", label: "Maintenances", icon: "⚙", adminOnly: false },
-    { path: "/dashboard/equipment",    label: "Devices",      icon: "◈", adminOnly: false },
+    { path: "/dashboard/maintenances", label: "Maintenances", icon: "⚙", adminOnly: false, permission: "VIEW_MAINTENANCE" },
+    { path: "/dashboard/equipment",    label: "Devices",      icon: "◈", adminOnly: false, permission: "VIEW_EQUIPMENT" },
+    { path: "/dashboard/reports",      label: "Reports",      icon: "▤", adminOnly: false, permission: "VIEW_REPORTS" },
     { path: null,                      label: "Settings",     icon: "⊘", adminOnly: false, disabled: true },
 ]
 
@@ -12,6 +13,7 @@ const Dashboard = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const user = JSON.parse(localStorage.getItem("user"))
+    const hasPermission = (permission) => user?.permissions?.includes(permission)
 
     const logout = () => {
         localStorage.removeItem("user")
@@ -36,7 +38,7 @@ const Dashboard = () => {
 
                 <nav className="sidebar-nav">
                     {navItems
-                        .filter(item => !item.adminOnly || user.isAdmin === 1)
+                        .filter(item => (!item.adminOnly || user.isAdmin === 1) && (!item.permission || hasPermission(item.permission)))
                         .map(item => (
                             <button
                                 key={item.label}

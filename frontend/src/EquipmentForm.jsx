@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 const EQUIPMENT_TYPES = ["FIREWALL", "ROUTER", "SWITCH", "SERVER", "OTHER"]
 const EQUIPMENT_STATES = ["OPERATIONAL", "UNDER_MAINTENANCE", "DAMAGED", "INACTIVE", "ARCHIVED"]
@@ -10,21 +10,17 @@ const EquipmentForm = ({ existingEquipment = {}, updateCallback, contacts = [] }
     const [serialNumber, setSerialNumber] = useState(existingEquipment.serialNumber || "")
     const [equipmentState, setEquipmentState] = useState(existingEquipment.equipmentState || "OPERATIONAL")
     const [assignedTo, setAssignedTo] = useState(existingEquipment.assignedTo?.id || "")
+    const [floor, setFloor] = useState(existingEquipment.locationDetails?.floor || "")
+    const [roomNumber, setRoomNumber] = useState(existingEquipment.locationDetails?.roomNumber || "")
+    const [locationDescription, setLocationDescription] = useState(existingEquipment.locationDetails?.description || "")
+    const [networkParameters, setNetworkParameters] = useState(existingEquipment.networkParameters || {})
 
     const updating = Object.entries(existingEquipment).length !== 0
-
-    useEffect(() => {
-        setType(existingEquipment.type || "")
-        setModel(existingEquipment.model || "")
-        setSerialNumber(existingEquipment.serialNumber || "")
-        setEquipmentState(existingEquipment.equipmentState || "OPERATIONAL")
-        setAssignedTo(existingEquipment.assignedTo?.id || "")
-    }, [existingEquipment])
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        if (!updating && serialNumber.length < 10) {
+        if (serialNumber.length < 10) {
             alert("Serial Number must be at least 10 characters long.")
             return
         }
@@ -35,11 +31,14 @@ const EquipmentForm = ({ existingEquipment = {}, updateCallback, contacts = [] }
             serialNumber,
             equipmentState,
             assignedTo: assignedTo || null
+            ,locationDetails: floor !== "" && roomNumber !== "" ? { floor: Number(floor), roomNumber: Number(roomNumber), description: locationDescription } : null
+            ,networkParameters
+            ,changedBy: JSON.parse(localStorage.getItem("user"))?.id || null
         }
 
         const url = updating
-            ? `http://127.0.0.1:5000/update_equipment/${existingEquipment.id}`
-            : "http://127.0.0.1:5000/create_equipment"
+            ? `/api/update_equipment/${existingEquipment.id}`
+            : "/api/create_equipment"
 
         const options = {
             method: updating ? "PATCH" : "POST",
@@ -106,6 +105,24 @@ const EquipmentForm = ({ existingEquipment = {}, updateCallback, contacts = [] }
                     ))}
                 </select>
             </div>
+            <div>
+                <label htmlFor="floor">Floor:</label>
+                <input type="number" id="floor" value={floor} onChange={(e) => setFloor(e.target.value)} />
+            </div>
+            <div>
+                <label htmlFor="roomNumber">Room:</label>
+                <input type="number" id="roomNumber" value={roomNumber} onChange={(e) => setRoomNumber(e.target.value)} />
+            </div>
+            <div>
+                <label htmlFor="locationDescription">Location Description:</label>
+                <input id="locationDescription" value={locationDescription} onChange={(e) => setLocationDescription(e.target.value)} />
+            </div>
+            {Object.entries({ ipAddress: "IP Address", macAddress: "MAC Address", hostname: "Hostname", vlan: "VLAN" }).map(([key, label]) => (
+                <div key={key}>
+                    <label htmlFor={key}>{label}:</label>
+                    <input id={key} value={networkParameters[key] || ""} onChange={(e) => setNetworkParameters((current) => ({ ...current, [key]: e.target.value }))} />
+                </div>
+            ))}
 
             <button type="submit">{updating ? "Update" : "Add"} Equipment</button>
         </form>

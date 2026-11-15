@@ -1,6 +1,6 @@
 import React from "react"
 
-const EquipmentList = ({ equipment, updateEquipment, deleteEquipment }) => {
+const EquipmentList = ({ equipment, updateEquipment, deleteEquipment, showDetails, getLocationLabel, canManage }) => {
 
     const getStateBadge = (state) => {
         const badgeMap = {
@@ -22,21 +22,28 @@ const EquipmentList = ({ equipment, updateEquipment, deleteEquipment }) => {
                     <th>Model</th>
                     <th>Serial Number</th>
                     <th>Assigned To</th>
+                    <th>Location</th>
                     <th>State</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {equipment.map((eq) => (
+                {equipment.length === 0 ? (
+                    <tr>
+                        <td colSpan="7" className="empty-state">No equipment found for the selected criteria</td>
+                    </tr>
+                ) : equipment.map((eq) => (
                     <tr key={eq.id}>
                         <td>{eq.type}</td>
                         <td>{eq.model}</td>
                         <td>{eq.serialNumber}</td>
                         <td>{eq.assignedTo ? `${eq.assignedTo.firstName} ${eq.assignedTo.lastName}` : "—"}</td>
+                        <td>{getLocationLabel(eq.locationDetails)}</td>
                         <td><span className={getStateBadge(eq.equipmentState)}>{eq.equipmentState}</span></td>
                         <td>
-                            <button onClick={() => updateEquipment(eq)}>Update</button>
-                            <button onClick={() => deleteEquipment(eq.id)}>Delete</button>
+                            <button onClick={() => showDetails(eq.id)}>Details</button>
+                            {canManage && <button onClick={() => updateEquipment(eq)}>Update</button>}
+                            {canManage && <button onClick={() => deleteEquipment(eq.id)}>Delete</button>}
                         </td>
                     </tr>
                 ))}
